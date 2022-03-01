@@ -56,7 +56,7 @@ class Hangman
         make_guess
       end
     else
-      puts 'Game over! you loose!'
+      puts "Game over! you loose! the word was #{@word.first}"
     end
   end
 
