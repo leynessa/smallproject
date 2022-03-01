@@ -33,38 +33,30 @@ class Hangman
   end
 
   def make_guess
-    if @lives.postive?
+    if @lives > 0
       puts 'Enter a letter'
       guess = gets.chomp
-      @word.first.include? guess
-      guessing
+      good_guess = @word.first.include? guess
+      if guess == 'exit'
+        puts 'Thank you for playing!'
+      elsif guess.length > 1
+        puts 'only guess 1 letter '
+        make_guess
+      elsif good_guess
+        puts 'You are correct!'
+        print_teaser(guess)
+        if @word.first == @word_teaser.split.join
+          puts 'Congratulations! you won'
+        else
+          make_guess
+        end
+      else
+        @lives -= 1
+        puts "Sorry... you have #{@lives} lives left. Try again!"
+        make_guess
+      end
     else
       puts 'Game over! you loose!'
-    end
-  end
-
-  def winner
-    if @word.first == @word_teaser.split.join
-      puts 'Congratulations! you won'
-    else
-      make_guess
-    end
-  end
-
-  def guessing
-    if guess == 'exit'
-      puts 'Thank you for playing!'
-    elsif guess.length > 1
-      puts 'only guess 1 letter '
-      make_guess
-    elsif good_guess
-      puts 'You are correct!'
-      print_teaser(guess)
-      winner
-    else
-      @lives -= 1
-      puts "Sorry... you have #{@lives} lives left. Try again!"
-      make_guess
     end
   end
 
